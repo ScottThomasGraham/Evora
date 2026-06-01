@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenBar — concept screen</title>
+<style>
+  :root{
+    --amber:#ff8a3d; --amber2:#ffc08a; --ok:#39d98a; --warn:#ff5a5f;
+    --ink:#eef3f9; --muted:#8a97a6; --bg:#080b10; --panel2:#11171f; --line:#26313f; --accentline:#3a2a1c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+  html,body{height:100%; overflow:hidden;}
+  body{background:#06080c; color:var(--ink); display:flex; align-items:center; justify-content:center;}
+  .wrap{display:flex; flex-direction:column; align-items:center; gap:18px;}
+  .cap{color:var(--muted); font-size:18px; font-weight:600; text-align:center;}
+  .cap .b{display:inline-flex; align-items:center; gap:8px; color:var(--amber2); font-weight:800;}
+  .cap .dot{width:13px;height:13px;border-radius:50%;background:var(--amber);box-shadow:0 0 14px var(--amber);}
+  .device{width:992px; padding:16px; background:#05070a; border:1px solid #1b232e; border-radius:24px; box-shadow:0 24px 70px rgba(0,0,0,.65), inset 0 0 0 1px #0c1118; transform-origin:center;}
+  .screen{width:960px; height:544px; background:linear-gradient(180deg,#0e141c,#0a0e14); border-radius:10px; overflow:hidden; position:relative; outline:1px solid #1a222c;}
+  section{display:none;}
+  section.on{display:block;}
+
+  .topbar{height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#121925,#0e141c);}
+  .tb-left{display:flex; align-items:center; gap:10px;}
+  .tb-left .d{width:12px;height:12px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber);}
+  .tb-left .name{font-weight:700; font-size:19px;}
+  .tb-mid{color:var(--muted); font-size:16px; font-weight:600;}
+  .tb-right{display:flex; align-items:center; gap:16px; font-size:15px;}
+  .bars{display:inline-flex; align-items:flex-end; gap:2px; height:16px;}
+  .bars i{width:4px;background:var(--ok);border-radius:1px;display:inline-block;}
+  .bars i:nth-child(1){height:6px}.bars i:nth-child(2){height:9px}.bars i:nth-child(3){height:12px}.bars i:nth-child(4){height:16px}
+  .batt{color:var(--ok); font-weight:700;}
+  .pill{padding:5px 12px; border-radius:999px; font-size:13px; font-weight:700; letter-spacing:.4px;}
+
+  /* Home */
+  .home-body{display:flex; height:424px;}
+  .hs{flex:1.25; display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--line);}
+  .hs .lbl{color:var(--muted); font-size:15px; letter-spacing:3px; font-weight:700;}
+  .hs .val{font-size:118px; font-weight:800; line-height:1; letter-spacing:-2px; background:linear-gradient(180deg,#fff,#cdd7e3); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hs .unit{font-size:24px; color:var(--muted); font-weight:700; margin-top:2px;}
+  .hs .gov{margin-top:18px; display:flex; align-items:center; gap:8px; color:var(--ok); font-weight:700; font-size:15px;}
+  .hs .gov .g{width:9px;height:9px;border-radius:50%;background:var(--ok); box-shadow:0 0 10px var(--ok);}
+  .tiles{flex:1; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:1px; background:var(--line);}
+  .tile{background:var(--panel2); display:flex; flex-direction:column; justify-content:center; padding:0 24px;}
+  .tile .t{color:var(--muted); font-size:14px; font-weight:600; letter-spacing:.5px;}
+  .tile .n{font-size:38px; font-weight:800; margin-top:4px;}
+  .tile .n small{font-size:17px; color:var(--muted); font-weight:700; margin-left:4px;}
+  .home-foot{display:flex; align-items:center; gap:14px; padding:0 22px; height:56px; border-top:1px solid var(--line); background:#0c121a;}
+  .tag{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;}
+  .tag .gd{width:9px;height:9px;border-radius:50%;}
+
+  /* Bind */
+  .bg-wrap{height:480px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; padding:0 50px;}
+  .bg-wrap h2{font-size:40px; font-weight:800; letter-spacing:-.5px;}
+  .bg-wrap .sub{color:var(--muted); font-size:18px; font-weight:500;}
+  .stepper{display:flex; align-items:center;}
+  .step{display:flex; align-items:center; gap:10px;}
+  .step .c{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px; border:2px solid var(--line); color:var(--muted);}
+  .step.done .c{background:var(--ok); border-color:var(--ok); color:#06281a;}
+  .step.active .c{background:var(--amber); border-color:var(--amber); color:#2a1606; box-shadow:0 0 16px var(--amber);}
+  .step .s{font-size:15px; color:var(--muted); font-weight:700;}
+  .step.done .s,.step.active .s{color:var(--ink);}
+  .seg{width:46px; height:2px; background:var(--line); margin:0 8px;}
+  .seg.done{background:var(--ok);}
+  .detcard{display:flex; align-items:center; gap:12px; background:rgba(57,217,138,.08); border:1px solid rgba(57,217,138,.4); padding:12px 18px; border-radius:12px; font-size:16px;}
+  .detcard .chk{color:var(--ok); font-weight:800; font-size:20px;}
+  .detcard b{color:#fff;}
+  .cta{margin-top:2px; background:linear-gradient(180deg,var(--amber),#f0742a); color:#2a1606; font-weight:800; font-size:19px; padding:15px 40px; border-radius:14px; box-shadow:0 10px 30px rgba(255,138,61,.35);}
+
+  /* Wizard */
+  .wz-top{height:70px; display:flex; align-items:center; gap:14px; padding:0 20px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#121925,#0e141c);}
+  .chev{font-size:24px;color:var(--muted);}
+  .wz-top .tt{font-weight:800; font-size:19px;}
+  .wz-top .tt small{color:var(--muted); font-weight:600;}
+  .wz-step{margin-left:auto; color:var(--muted); font-weight:700; font-size:15px;}
+  .prog{height:4px; background:#10161e;}
+  .prog i{display:block; height:100%; width:69%; background:linear-gradient(90deg,var(--amber),#ffb072);}
+  .wz-body{display:flex; height:412px;}
+  .wz-instr{flex:1.1; padding:26px 28px; display:flex; flex-direction:column; gap:14px; border-right:1px solid var(--line);}
+  .wz-instr h3{font-size:26px; font-weight:800;}
+  .wz-instr p{color:#c3cdd9; font-size:17px; line-height:1.5;}
+  .wz-diagram{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;}
+  .swash{position:relative; width:200px; height:120px;}
+  .swash .ring{position:absolute; inset:30px 0; border:3px solid #3a4756; border-radius:50%; transform:rotateX(58deg);}
+  .swash .srv{position:absolute; width:18px;height:18px;border-radius:50%; background:var(--ok); box-shadow:0 0 10px rgba(57,217,138,.6);}
+  .swash .s1{left:91px; top:0;} .swash .s2{left:6px; bottom:6px; background:var(--amber); box-shadow:0 0 12px var(--amber);} .swash .s3{right:6px; bottom:6px;}
+  .chips{display:flex; gap:10px;}
+  .chip{padding:9px 14px; border-radius:10px; border:1px solid var(--line); background:var(--panel2); font-weight:700; font-size:15px;}
+  .chip.rev{border-color:var(--amber); color:var(--amber2); background:rgba(255,138,61,.1);}
+  .wz-foot{height:58px; display:flex; align-items:center; gap:14px; padding:0 20px; border-top:1px solid var(--line); background:#0c121a;}
+  .safe{display:flex;align-items:center;gap:8px; color:var(--warn); font-weight:800; font-size:14px;}
+  .safe .sd{width:9px;height:9px;border-radius:50%;background:var(--warn); box-shadow:0 0 10px var(--warn);}
+  .mode{margin-left:6px; color:var(--muted); font-size:14px; font-weight:700;}
+  .mode .b{color:var(--amber2); padding:4px 10px;border:1px solid var(--accentline); border-radius:999px;}
+  .next{margin-left:auto; background:linear-gradient(180deg,var(--ok),#23b573); color:#06281a; font-weight:800; font-size:17px; padding:11px 26px; border-radius:12px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="cap" id="cap"></div>
+    <div class="device" id="dev">
+      <div class="screen">
+
+        <section id="home">
+          <div class="topbar">
+            <div class="tb-left"><div class="d"></div><div class="name">OpenBar</div></div>
+            <div class="tb-mid">Goblin 770 · Nitro</div>
+            <div class="tb-right"><span class="bars"><i></i><i></i><i></i><i></i></span><span>LQ 100</span><span class="batt">24.6V</span><span style="color:var(--muted)">14:32</span></div>
+          </div>
+          <div class="home-body">
+            <div class="hs"><div class="lbl">HEADSPEED</div><div class="val">2,010</div><div class="unit">RPM</div><div class="gov"><span class="g"></span> GOVERNOR HOLDING</div></div>
+            <div class="tiles">
+              <div class="tile"><div class="t">PACK</div><div class="n">24.6<small>V · 6S</small></div></div>
+              <div class="tile"><div class="t">CURRENT</div><div class="n">38<small>A</small></div></div>
+              <div class="tile"><div class="t">USED</div><div class="n">1.85<small>Ah</small></div></div>
+              <div class="tile"><div class="t">ESC TEMP</div><div class="n">61<small>°C</small></div></div>
+            </div>
+          </div>
+          <div class="home-foot">
+            <span class="pill" style="background:rgba(255,138,61,.15); color:var(--amber2); border:1px solid var(--accentline);">BANK 2 · SPORT</span>
+            <span class="tag" style="color:var(--ok)"><span class="gd" style="background:var(--ok); box-shadow:0 0 10px var(--ok)"></span>RESCUE ARMED</span>
+            <span class="tag" style="margin-left:auto; color:var(--muted)">⏱ 04:31</span>
+            <span class="tag" style="color:var(--muted)">⚙ Setup</span>
+          </div>
+        </section>
+
+        <section id="bind">
+          <div class="topbar"><div class="tb-left"><div class="d"></div><div class="name">OpenBar</div></div><div class="tb-mid">New Helicopter</div><div class="tb-right"><span style="color:var(--muted)">14:33</span></div></div>
+          <div class="bg-wrap">
+            <h2>Your heli is bound 🎉</h2>
+            <div class="sub">Link, channels &amp; telemetry are already configured — nothing to set up.</div>
+            <div class="stepper">
+              <div class="step done"><div class="c">✓</div><div class="s">Bind</div></div><div class="seg done"></div>
+              <div class="step done"><div class="c">✓</div><div class="s">Detect</div></div><div class="seg"></div>
+              <div class="step active"><div class="c">3</div><div class="s">Wizard</div></div><div class="seg"></div>
+              <div class="step"><div class="c">4</div><div class="s">Fly</div></div>
+            </div>
+            <div class="detcard"><span class="chk">✓</span><div>Found <b>FlyDragon F722</b> · running <b>Rotorflight 2.2.1</b></div></div>
+            <div class="cta">Begin Heli Setup →</div>
+          </div>
+        </section>
+
+        <section id="wizard">
+          <div class="wz-top"><span class="chev">‹</span><div class="tt">New Heli · <small>Swashplate</small></div><div class="wz-step">Step 9 / 13</div></div>
+          <div class="prog"><i></i></div>
+          <div class="wz-body">
+            <div class="wz-instr">
+              <h3>Check swash direction</h3>
+              <p>Raise the collective stick. The swashplate should rise <b>evenly and upward</b>.</p>
+              <p>If a servo moves the wrong way, tap it to reverse — then confirm.</p>
+              <div class="chips"><div class="chip">CH1 ↑</div><div class="chip rev">CH2 ↓ reversed</div><div class="chip">CH3 ↑</div></div>
+            </div>
+            <div class="wz-diagram"><div class="swash"><div class="ring"></div><div class="srv s1"></div><div class="srv s2"></div><div class="srv s3"></div></div><div style="color:var(--muted); font-size:14px; font-weight:600;">tap a servo dot to reverse</div></div>
+          </div>
+          <div class="wz-foot"><span class="safe"><span class="sd"></span>MOTOR SAFE</span><span class="mode">BASIC <span class="b">hold for Pro ▸</span></span><span class="next">Looks right ✓</span></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+<script>
+  var caps = {
+    home:   '1 · <span class="b"><span class="dot"></span>Home dashboard</span> — everything that matters, at a glance',
+    bind:   '2 · <span class="b"><span class="dot"></span>Bind &amp; Go</span> — bind it, OpenBar detects the heli, you fly',
+    wizard: '3 · <span class="b"><span class="dot"></span>Setup wizard</span> — one decision per screen, verified on the bench'
+  };
+  var s = (new URLSearchParams(location.search).get('s')) || 'home';
+  document.getElementById(s).classList.add('on');
+  document.getElementById('cap').innerHTML = caps[s];
+  // scale device to fit viewport
+  function fit(){
+    var dev = document.getElementById('dev');
+    dev.style.transform = 'scale(1)';
+    var r = dev.getBoundingClientRect();
+    var sc = Math.min((window.innerWidth*0.96)/r.width, (window.innerHeight*0.86)/r.height);
+    dev.style.transform = 'scale(' + sc + ')';
+  }
+  fit(); window.addEventListener('resize', fit);
+</script>
+</body>
+</html>

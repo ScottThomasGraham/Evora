@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>wiz collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#f4f7fb;--dim:#aeb8c4;--muted:#6f7c89;--amber:#ff9242;--amber2:#ffb274;--green:#3fe0a0;--line:#2a3644;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{margin:0;background:#04050a;font-family:"Barlow Semi Condensed",sans-serif;}
+  .screen{position:relative;width:960px;height:544px;overflow:hidden;color:var(--ink);background:linear-gradient(180deg,#121c28,#05080d);}
+  .hd{position:relative;height:68px;background:#0e151e;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--line);}
+  .hd .bk{color:var(--amber);font-family:"Rajdhani";font-weight:700;font-size:40px;margin-right:14px;}
+  .hd b{font-family:"Rajdhani";font-weight:700;font-size:30px;letter-spacing:2px;}
+  .hd .sec{color:var(--muted);font-weight:600;letter-spacing:3px;font-size:20px;margin-left:16px;text-transform:uppercase;}
+  .hd .step{margin-left:auto;color:var(--muted);font-weight:600;letter-spacing:2px;font-size:20px;}
+  .pbar{position:absolute;left:0;bottom:-1px;height:5px;background:var(--amber);box-shadow:0 0 14px var(--amber);}
+  .title{font-family:"Rajdhani";font-weight:700;font-size:52px;line-height:1;padding:16px 24px 0;display:flex;align-items:center;gap:14px;}
+  .live{font-family:"Barlow Semi Condensed";font-size:17px;font-weight:700;letter-spacing:2px;color:#06281a;background:var(--green);
+    padding:3px 12px;border-radius:8px;box-shadow:0 0 14px rgba(63,224,160,.5);}
+  .sub{color:var(--dim);font-size:22px;font-weight:500;padding:4px 24px 0;}
+  .stage{display:flex;align-items:center;padding:6px 24px 0;}
+  .diagram{flex:0 0 470px;height:236px;display:flex;align-items:center;justify-content:center;}
+  .panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+  .val{font-family:"Rajdhani";font-weight:700;font-size:120px;line-height:.8;
+    background:linear-gradient(180deg,#fff,#bcc8d6);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .vlbl{color:var(--muted);font-weight:600;letter-spacing:4px;font-size:18px;}
+  .adj{display:flex;align-items:center;gap:16px;margin-top:8px;}
+  .btn{width:64px;height:64px;border-radius:16px;border:1px solid var(--amber);background:rgba(255,146,66,.14);
+    color:var(--amber2);font-family:"Rajdhani";font-weight:700;font-size:48px;display:flex;align-items:center;justify-content:center;}
+  .ft{position:absolute;left:0;right:0;bottom:0;height:80px;background:#0e151e;border-top:1px solid var(--line);display:flex;align-items:center;padding:0 24px;}
+  .ms{display:flex;align-items:center;gap:10px;color:#ff5a5f;font-weight:600;letter-spacing:1px;font-size:20px;}
+  .ms .d{width:12px;height:12px;border-radius:50%;background:#ff5a5f;}
+  .next{margin-left:auto;background:var(--green);color:#06281a;font-family:"Rajdhani";font-weight:700;font-size:30px;padding:12px 30px;border-radius:14px;}
+  .cap{position:fixed;top:6px;left:8px;color:#5a6571;font-size:13px;}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;}</style></head>
+<body>
+<div class="screen">
+  <div class="hd"><span class="bk">‹</span><b>NEW HELI</b><span class="sec">Collective</span><span class="step">STEP 8 / 12</span>
+    <div class="pbar" style="width:66%"></div></div>
+  <div class="title">Max pitch <span class="live">LIVE</span></div>
+  <div class="sub">Hold full-up collective. Adjust until the blade reads +12°.</div>
+  <div class="stage">
+    <div class="diagram">
+      <!-- blade pitch protractor -->
+      <svg width="470" height="236" viewBox="0 0 470 236">
+        <!-- pivot -->
+        <circle cx="120" cy="150" r="6" fill="#2a3644"/>
+        <!-- reference (0deg) dashed -->
+        <line x1="120" y1="150" x2="430" y2="150" stroke="#243140" stroke-width="2" stroke-dasharray="6 7"/>
+        <!-- arc 0->12deg -->
+        <path d="M250 150 A130 130 0 0 0 247 122" fill="none" stroke="var(--amber)" stroke-width="3"/>
+        <!-- blade at +12deg (rotate around pivot) -->
+        <g transform="rotate(-12 120 150)">
+          <rect x="120" y="141" width="300" height="18" rx="9" fill="#18222e" stroke="var(--amber)" stroke-width="2.5"/>
+          <rect x="120" y="146" width="300" height="3" fill="rgba(255,146,66,.4)"/>
+        </g>
+        <!-- collective up arrow -->
+        <path d="M70 150 l0 -56 m-12 14 l12 -14 l12 14" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="70" y="178" fill="var(--green)" font-family="Barlow Semi Condensed" font-weight="600" font-size="16" text-anchor="middle">UP</text>
+        <!-- angle label near arc -->
+        <text x="300" y="120" fill="var(--amber2)" font-family="Rajdhani" font-weight="700" font-size="26">12°</text>
+      </svg>
+    </div>
+    <div class="panel">
+      <div class="vlbl">MAX PITCH</div>
+      <div class="val">12.0°</div>
+      <div class="adj"><div class="btn">−</div><div class="btn">+</div></div>
+    </div>
+  </div>
+  <div class="ft"><span class="ms"><span class="d"></span>MOTOR SAFE · blades on for this step</span><span class="next">Set ›</span></div>
+</div>
+<script>var s=document.querySelector(".screen");function fit(){var k=Math.min(innerWidth/960,innerHeight/544);s.style.transform="scale("+k+")";}fit();addEventListener("resize",fit);setTimeout(fit,500);</script></body></html>

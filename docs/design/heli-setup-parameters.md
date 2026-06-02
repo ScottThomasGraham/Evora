@@ -80,6 +80,47 @@ rest can be set from selections. Each keeps the MOTOR-SAFE banner.
    **live on the heli** (like VBar), not just write computed defaults.
 5. Anything VBar collects that you want to **drop** for v1, or anything missing?
 
+## REVISION 2026-06-02 — owner decisions
+- **Class presets:** owner will supply a **preset file (or offsets) per size**,
+  developed during flight testing. Evora's "Pick your heli" step just selects the
+  class and applies the matching preset; the preset *data* is owner-provided later.
+- **Governor: support ALL THREE** (no Nitro drop):
+  1. **ESC governor (external):** the ESC governs headspeed; Rotorflight runs gov
+     `OFF/PASSTHROUGH` and just sends throttle %. Evora collects: ESC protocol +
+     throttle range; headspeed is set on the ESC. (Minimal RF write.)
+  2. **Rotorflight governor (electric):** RF governs — use **MODE2** (battery-comp,
+     the recommended default). Collects: **gear ratio** as pinion/main **teeth**,
+     **motor pole count**, **RPM source** (ESC telemetry or RPM sensor), and
+     **headspeed per bank**. (Refs: rotorflight.org governor + motor/ESC tabs.)
+  3. **Nitro governor:** RF governs a nitro engine via the throttle **servo** +
+     an **RPM sensor** (magnets on the gear). Collects: gear ratio, sensor magnet
+     count, headspeed, idle/spool. 
+- **Headspeed model:** per-bank profiles (RF "Method 2": one headspeed per profile,
+  switched by AUX2 — already in our channel map). Banks = our 3 flight modes.
+- **Every step is LIVE:** adjustments take effect on the heli in real time (servos
+  move as you adjust), via MSP — like VBar. UI built now; MSP writes wired on the bench.
+- **Leading/lagging edge:** KEEP as a feature (swash phase).
+- **Less is more:** keep only mandatory steps; combine where sensible.
+- **Visual-first:** EVERY step leads with a **guiding diagram/illustration** that
+  shows what to do; text is brief, only when the action is complex.
+
+### Simplified, visual-first flow (v2)
+1. **Before we begin** — blades off / motor safe (warning diagram).
+2. **Pick your heli** — class 450/550/700/800 → preset (size silhouettes).
+3. **Bind** — connect to the heli (radio↔heli link diagram).
+4. **Board orientation** — mounting + rotation (top-down heli + arrows).
+5. **Swashplate type** — 120/135/140 (swash geometry diagram).
+6. **Rotor direction** — CW/CCW (rotor disc + arrow).
+7. **Swash check** *(live)* — level + direction + leading/lagging (swash side view).
+8. **Collective & cyclic** *(live)* — set pitch travel in ° (blade protractor gauge).
+9. **Tail** *(live)* — servo type + travel (tail rotor + travel arrows).
+10. **Governor** — pick ESC / Rotorflight / Nitro (3 flow diagrams).
+11. **Governor settings** — per type (gear teeth / poles / headspeed; diagram).
+12. **Ready to fly** — review + write to Rotorflight.
+
+Refs: rotorflight.org governor setup + motor/ESC tabs (governor modes MODE1/MODE2,
+gear ratio as pinion/main teeth, pole count, RPM telemetry).
+
 ## Next step
 Once the mapping + structure are confirmed (and I verify the ⚠️ tokens against
 Rotorflight 2.2.1's CLI/MSP), I rebuild the wizard with these steps in the Evora

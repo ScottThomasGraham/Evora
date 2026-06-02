@@ -104,19 +104,23 @@ rest can be set from selections. Each keeps the MOTOR-SAFE banner.
 - **Visual-first:** EVERY step leads with a **guiding diagram/illustration** that
   shows what to do; text is brief, only when the action is complex.
 
-### Simplified, visual-first flow (v2)
+### Visual-first flow (v3 — 13 steps, servo pulse moved up for safety)
 1. **Before we begin** — blades off / motor safe (warning diagram).
-2. **Pick your heli** — class 450/550/700/800 → preset (size silhouettes).
-3. **Bind** — connect to the heli (radio↔heli link diagram).
-4. **Board orientation** — mounting + rotation (top-down heli + arrows).
-5. **Swashplate type** — 120/135/140 (swash geometry diagram).
-6. **Rotor direction** — CW/CCW (rotor disc + arrow).
-7. **Swash check** *(live)* — level + direction + leading/lagging (swash side view).
-8. **Collective & cyclic** *(live)* — set pitch travel in ° (blade protractor gauge).
-9. **Tail** *(live)* — servo type + travel (tail rotor + travel arrows).
-10. **Governor** — pick ESC / Rotorflight / Nitro (3 flow diagrams).
-11. **Governor settings** — per type (gear teeth / poles / headspeed; diagram).
-12. **Ready to fly** — review + write to Rotorflight.
+2. **Bind** — connect to the heli's FBL (radio↔heli link diagram).
+3. **Servo pulse** — centre-pulse 760µs / 1520µs per servo group (swash, tail).
+   **MUST be early** — set before the class preset or any live step drives a servo,
+   so a wrong pulse width can't burn out a servo at power-on. RF: per-servo centre
+   pulse + framerate.
+4. **Pick your heli** — class 450/550/700/800 → preset (size silhouettes).
+5. **Board orientation** — mounting + rotation (top-down heli + arrows).
+6. **Swashplate type** — 120/135/140 (swash geometry diagram).
+7. **Rotor direction** — CW/CCW (rotor disc + arrow).
+8. **Swash check** *(live)* — level + direction + leading/lagging (swash iso view).
+9. **Collective pitch** *(live)* — set max pitch in ° (blade protractor gauge).
+10. **Tail travel** *(live)* — rudder-stick travel to mech limit (tail diagram).
+11. **Governor** — pick ESC / Rotorflight / Nitro (3 flow diagrams).
+12. **Governor settings** — per type (gear teeth / poles / headspeed; gear diagram).
+13. **Ready to fly** — review + write to Rotorflight.
 
 Refs: rotorflight.org governor setup + motor/ESC tabs (governor modes MODE1/MODE2,
 gear ratio as pinion/main teeth, pole count, RPM telemetry).

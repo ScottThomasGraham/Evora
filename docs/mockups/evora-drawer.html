@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Evora — slide-out drawer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#f4f7fb;--dim:#aeb8c4;--muted:#6f7c89;--amber:#ff9242;--amber-soft:#ffb274;--green:#3fe0a0;--line:rgba(255,255,255,.08);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:#04050a;display:flex;align-items:center;justify-content:center;font-family:"Barlow Semi Condensed",sans-serif;}
+  .bezel{padding:16px;background:linear-gradient(180deg,#0a0c12,#05070b);border:1px solid #1b2330;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.7);}
+  .screen{position:relative;width:960px;height:544px;border-radius:12px;overflow:hidden;color:var(--ink);background:radial-gradient(130% 120% at 50% -20%,#16202e 0%,#0a1019 45%,#06090f 100%);}
+  /* clean home behind */
+  .home{position:absolute;inset:0;padding:26px 30px;}
+  .top{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:18px;font-weight:600;letter-spacing:3px;text-transform:uppercase;}
+  .top .d{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);}
+  .top .sp{flex:1;}
+  .batt{color:var(--green);font-family:Rajdhani;font-weight:700;font-size:21px;}
+  .clock{color:var(--muted);font-family:Rajdhani;font-weight:600;font-size:21px;}
+  .hero{position:absolute;left:0;right:0;top:150px;text-align:center;}
+  .hero .wm{font-family:Rajdhani;font-weight:700;font-size:104px;letter-spacing:6px;line-height:.9;}
+  .hero .wm .tx{font-size:30px;background:var(--amber);color:#1a0e03;border-radius:8px;padding:4px 10px;vertical-align:middle;margin-left:14px;}
+  .hero .os{color:var(--muted);letter-spacing:7px;font-size:21px;margin-top:8px;}
+  .pill{display:inline-flex;align-items:center;gap:9px;margin-top:18px;border:1px solid var(--line);border-radius:20px;padding:8px 18px;color:var(--dim);font-size:18px;font-weight:600;}
+  .pill .g{width:9px;height:9px;border-radius:50%;background:var(--green);}
+  .dog{position:absolute;right:60px;top:120px;height:320px;opacity:.06;}
+  /* scrim + handle */
+  .scrim{position:absolute;inset:0;background:rgba(2,4,8,.55);}
+  .handle{position:absolute;right:0;top:50%;transform:translateY(-50%);width:7px;height:120px;border-radius:6px 0 0 6px;background:linear-gradient(180deg,var(--amber),#b9531f);box-shadow:-2px 0 14px rgba(255,146,66,.5);}
+  /* drawer */
+  .drawer{position:absolute;top:0;right:0;bottom:0;width:404px;background:linear-gradient(180deg,#0e151e,#070b11);border-left:1.5px solid rgba(255,146,66,.5);box-shadow:-24px 0 60px rgba(0,0,0,.6);padding:22px 22px 18px;display:flex;flex-direction:column;}
+  .dh{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .dh .t{font-family:Rajdhani;font-weight:700;font-size:26px;letter-spacing:3px;}
+  .dh .x{margin-left:auto;color:var(--muted);font-size:26px;}
+  .nav{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+  .b{background:linear-gradient(180deg,#18222e,#0d141c);border:1px solid var(--line);border-radius:15px;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:96px;justify-content:space-between;position:relative;}
+  .b.amber{border-color:rgba(255,146,66,.6);background:linear-gradient(180deg,#241a10,#140d06);}
+  .b .ic{width:38px;height:38px;border-radius:10px;background:rgba(255,146,66,.14);}
+  .b.amber .ic{background:rgba(255,146,66,.26);}
+  .b .nm{font-family:Rajdhani;font-weight:700;font-size:24px;color:var(--ink);}
+  .b.amber .nm{color:var(--amber-soft);}
+  .b .sub{color:var(--muted);font-size:15px;}
+  .wide{grid-column:1 / -1;flex-direction:row;align-items:center;min-height:62px;}
+  .wide .nm{font-size:23px;}
+</style></head>
+<body>
+<div class="bezel"><div class="screen">
+  <div class="home">
+    <div class="top"><span class="d"></span> EVORA <span class="sp"></span><span class="batt">92%</span> <span class="clock">14:32</span></div>
+    <div class="hero">
+      <div class="wm">EVORA<span class="tx">TX</span></div>
+      <div class="os">OPEN HELI OS</div>
+      <div class="pill"><span class="g"></span> STANDBY — NO HELI CONNECTED</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="drawer">
+    <div class="dh"><span class="t">SETUP</span><span class="x">✕</span></div>
+    <div class="nav">
+      <div class="b amber"><div class="ic"></div><div class="nm">New model</div><div class="sub">guided wizard</div></div>
+      <div class="b amber"><div class="ic"></div><div class="nm">Edit model</div><div class="sub">by discipline</div></div>
+      <div class="b"><div class="ic"></div><div class="nm">Helicopters</div><div class="sub">Goblin 770 +3</div></div>
+      <div class="b"><div class="ic"></div><div class="nm">Bind</div><div class="sub">pair a heli</div></div>
+      <div class="b"><div class="ic"></div><div class="nm">Tools</div><div class="sub">blackbox · servo</div></div>
+      <div class="b"><div class="ic"></div><div class="nm">Settings</div><div class="sub">radio device</div></div>
+    </div>
+  </div>
+  <div class="handle"></div>
+</div></div>
+</body></html>

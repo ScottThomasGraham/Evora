@@ -76,6 +76,16 @@ repos: [`upstream-baselines.md`](upstream-baselines.md).
 4. **Phase 0 hardware (owner):** flash `evora-tx16s` (bootloader-recoverable) once the SD reader arrives; copy `docs/sdcard/tx16s/IMAGES/splash.png` to the SD. MK3 when on hand.
 
 ## Session log
+**2026-06-03 — menu system + Pro area + ELRS re-pin + visual pass.**
+- **ELRS re-pinned `4.0.1 → 3.6.3`** (Evora-Link rebased; ELRS 4.0 breaking changes) — [`upstream-baselines.md`](upstream-baselines.md).
+- **Critical visual pass, both resolutions** — fixed the wizard stepper `+/-` glyphs (EVF_NUM_MD is
+  numerals-only), the `12 / 112` / `2150 rpm` glyph drops, and the governor numRow label/value overlap.
+- **Menu system rebuilt** (`evora_screen.{h,cpp}`, `Evora-TX@b0c04905d`): scrollable list pages + a
+  push/pop nav stack; **System** gains a **Pro-mode toggle**; Pro reveals **PRO TUNING — the full
+  Rotorflight Configurator surface** (19 tabs) as navigable shells (placeholders until MSP). Tools
+  gains sub-pages. Design: [`design/menu-system.md`](design/menu-system.md). **TODO:** encoder
+  scroll/edit wiring; wire real `g_eeGeneral` editors + Rotorflight MSP read/writes.
+
 **2026-06-02 — first on-hardware flash + UI fixes + local toolchain.**
 - **Local native build solved.** Built a native arm64 toolchain image (ARM aarch64 `arm-none-eabi
   14.2.rel1`) → firmware compiles clean on this Mac with no qemu segfaults. `./build-evora-tx.sh`.

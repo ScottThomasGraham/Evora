@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mono — Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:#0c0c0d;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;}
+  .bezel{padding:16px;background:#161617;border:1px solid #2a2a2c;border-radius:18px;}
+  .s{position:relative;width:960px;height:544px;border-radius:8px;overflow:hidden;background:#0a0a0a;color:#e9e9e6;}
+  .lime{color:#c6f24e;}.mut{color:#5f6157;}
+  .top{display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid #232323;font-weight:600;font-size:18px;letter-spacing:1px;opacity:.5;}
+  .sp{flex:1;}
+  /* dim ghost of chips behind */
+  .ghost{position:absolute;top:90px;left:22px;right:22px;display:grid;grid-template-columns:1fr 1fr;gap:13px;opacity:.18;}
+  .gc{height:62px;border:1px solid #2a2a2a;background:#121212;}
+  .scrim{position:absolute;inset:0;background:rgba(4,5,5,.6);}
+  .modal{position:absolute;left:170px;right:170px;top:140px;border:1.5px solid #c6f24e;background:#0e0e0e;padding:24px 26px;}
+  .lbl{font-family:"IBM Plex Mono";font-weight:600;font-size:22px;}
+  .stepper{display:flex;align-items:center;justify-content:center;gap:26px;margin:22px 0 14px;}
+  .pm{width:62px;height:62px;border:1px solid #c6f24e;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-weight:600;font-size:38px;color:#c6f24e;background:rgba(198,242,78,.06);}
+  .val{font-family:"IBM Plex Sans";font-weight:700;font-size:74px;color:#c6f24e;line-height:1;min-width:200px;text-align:center;}
+  .val .u{font-family:"IBM Plex Mono";font-size:22px;color:#5f6157;}
+  .hint{color:#9a9a93;font-size:18px;line-height:1.35;}
+  .done{margin-top:22px;display:flex;justify-content:flex-end;}
+  .done .b{border:1px solid #c6f24e;background:#c6f24e;color:#0a0a0a;font-family:"IBM Plex Mono";font-weight:700;font-size:20px;padding:9px 24px;}
+</style></head>
+<body><div class="bezel"><div class="s">
+  <div class="top"><span class="lime">EVORA</span><span class="mut">/ EDIT / main_rotor</span><span class="sp"></span><span>14:32</span></div>
+  <div class="ghost"><div class="gc"></div><div class="gc"></div><div class="gc"></div><div class="gc"></div><div class="gc"></div><div class="gc"></div></div>
+  <div class="scrim"></div>
+  <div class="modal">
+    <div class="lbl">collective_pitch</div>
+    <div class="stepper">
+      <div class="pm">-</div>
+      <div class="val">12.0<span class="u"> deg</span></div>
+      <div class="pm">+</div>
+    </div>
+    <div class="hint">// max collective blade pitch. adjust here — writes to the heli once connected.</div>
+    <div class="done"><span class="b">done ✓</span></div>
+  </div>
+</div></div></body></html>

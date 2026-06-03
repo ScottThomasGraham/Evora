@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mono — Edit Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:#0c0c0d;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;}
+  .bezel{padding:16px;background:#161617;border:1px solid #2a2a2c;border-radius:18px;}
+  .s{position:relative;width:960px;height:544px;border-radius:8px;overflow:hidden;background:#0a0a0a;color:#e9e9e6;}
+  .lime{color:#c6f24e;}.mut{color:#5f6157;}
+  .top{display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid #232323;font-weight:600;font-size:18px;letter-spacing:1px;}
+  .sp{flex:1;}.top .m{color:#9a9a93;font-weight:500;}
+  .grid{position:absolute;top:74px;left:22px;right:22px;bottom:54px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:14px;}
+  .t{position:relative;border:1px solid #2a2a2a;background:#121212;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;}
+  .t.on{border-color:#c6f24e;background:rgba(198,242,78,.06);}
+  .t .ix{position:absolute;top:14px;right:16px;color:#3f4138;font-size:15px;font-weight:600;}
+  .t.on .ix{color:#c6f24e;}
+  .t .nm{font-family:"IBM Plex Mono";font-weight:700;font-size:25px;letter-spacing:.5px;margin-top:6px;}
+  .t .st{font-size:16px;font-weight:500;}
+  .pager{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#5f6157;font-size:16px;font-weight:600;letter-spacing:1px;}
+  .pager b{color:#c6f24e;}
+</style></head>
+<body><div class="bezel"><div class="s">
+  <div class="top"><span class="lime">EVORA</span><span class="mut">/ EDIT</span><span class="mut">/ goblin_770</span><span class="sp"></span><span class="m">92% 14:32</span></div>
+  <div class="grid">
+    <div class="t on"><span class="ix">01</span><div class="nm">ESC / MOTOR</div><div class="st lime">dshot600 · 6s</div></div>
+    <div class="t"><span class="ix">02</span><div class="nm">MAIN ROTOR</div><div class="st mut">h3-120 · cw</div></div>
+    <div class="t"><span class="ix">03</span><div class="nm">SWASHPLATE</div><div class="st mut">3-servo · 12&deg;</div></div>
+    <div class="t"><span class="ix">04</span><div class="nm">TAIL ROTOR</div><div class="st mut">variable pitch</div></div>
+    <div class="t"><span class="ix">05</span><div class="nm">GOVERNOR</div><div class="st lime">2150 rpm</div></div>
+    <div class="t"><span class="ix">06</span><div class="nm">FLIGHT TUNE</div><div class="st mut">bank 3 · sport</div></div>
+  </div>
+  <div class="pager">[ <b>01</b> / 02 ]  &lt; scroll &gt;</div>
+</div></div></body></html>

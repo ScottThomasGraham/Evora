@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mono — Flight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:#0c0c0d;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;}
+  .bezel{padding:16px;background:#161617;border:1px solid #2a2a2c;border-radius:18px;}
+  .s{position:relative;width:960px;height:544px;border-radius:8px;overflow:hidden;background:#0a0a0a;color:#e9e9e6;}
+  .lime{color:#c6f24e;}.mut{color:#5f6157;}
+  .top{display:flex;align-items:center;gap:14px;padding:15px 24px;border-bottom:1px solid #232323;font-weight:600;font-size:17px;letter-spacing:1px;}
+  .sp{flex:1;}.armed{color:#c6f24e;border:1px solid #c6f24e;padding:2px 9px;font-size:15px;}
+  /* dial */
+  svg{position:absolute;left:36px;top:120px;}
+  .big{position:absolute;left:96px;top:226px;width:240px;text-align:center;}
+  .big .n{font-family:"IBM Plex Sans";font-weight:700;font-size:68px;line-height:.9;letter-spacing:-1px;}
+  .big .u{color:#5f6157;font-size:17px;}
+  /* right column */
+  .r{position:absolute;left:380px;top:112px;right:30px;}
+  .panel{border:1px solid #232323;background:#101010;padding:16px 18px;margin-bottom:13px;}
+  .pl{display:flex;justify-content:space-between;align-items:baseline;}
+  .pl .k{color:#5f6157;font-size:15px;}
+  .pl .v{font-family:"IBM Plex Sans";font-weight:700;font-size:34px;}
+  .bar{height:12px;background:#1c1c1c;margin-top:12px;position:relative;}
+  .bar i{position:absolute;left:0;top:0;bottom:0;width:72%;background:#c6f24e;}
+  .row3{display:flex;gap:13px;}
+  .cell{flex:1;border:1px solid #232323;background:#101010;padding:12px 14px;}
+  .cell .k{color:#5f6157;font-size:13px;}
+  .cell .v{font-family:"IBM Plex Sans";font-weight:700;font-size:30px;margin-top:2px;}
+  .foot{position:absolute;left:36px;bottom:18px;color:#5f6157;font-size:16px;}
+</style></head>
+<body><div class="bezel"><div class="s">
+  <div class="top"><span class="lime">EVORA</span><span class="mut">/ goblin_770</span><span class="mut">bank_3·sport</span><span class="sp"></span><span class="armed">ARMED</span><span class="mut">14:32</span></div>
+  <svg width="300" height="300" viewBox="0 0 300 300">
+    <circle cx="150" cy="150" r="130" fill="none" stroke="#1f1f1f" stroke-width="16"/>
+    <path d="M 60 240 A 130 130 0 1 1 240 240" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+    <path d="M 60 240 A 130 130 0 0 1 196 60" fill="none" stroke="#c6f24e" stroke-width="16" stroke-linecap="butt"/>
+    <g stroke="#3a3a3a" stroke-width="2">
+      <line x1="150" y1="28" x2="150" y2="44"/><line x1="252" y1="98" x2="238" y2="106"/>
+      <line x1="60" y1="240" x2="74" y2="232"/><line x1="240" y1="240" x2="226" y2="232"/>
+    </g>
+    <text x="150" y="200" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" fill="#5f6157">HEADSPEED</text>
+  </svg>
+  <div class="big"><div class="n lime">1850</div><div class="u">rpm · gov hold</div></div>
+  <div class="r">
+    <div class="panel"><div class="pl"><span class="k">PACK · 6s · 5500mah</span><span class="v">24.6<span style="font-size:18px;color:#5f6157;">v</span></span></div>
+      <div class="pl" style="margin-top:6px;"><span class="k lime">72%</span><span class="k">4.10 v/cell</span></div>
+      <div class="bar"><i></i></div></div>
+    <div class="row3">
+      <div class="cell"><div class="k">esc °c</div><div class="v">61</div></div>
+      <div class="cell"><div class="k">curr a</div><div class="v">38</div></div>
+      <div class="cell"><div class="k">thr %</div><div class="v lime">72</div></div>
+    </div>
+    <div class="panel" style="margin-top:13px;"><div class="pl"><span class="k">flight_time</span><span class="v">04:31</span></div></div>
+  </div>
+  <div class="foot">link 100% · lq 99</div>
+</div></div></body></html>

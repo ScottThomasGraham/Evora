@@ -79,6 +79,21 @@ repos: [`upstream-baselines.md`](upstream-baselines.md).
 4. **Phase 0 hardware (owner):** flash `evora-tx16s` (bootloader-recoverable) once the SD reader arrives; copy `docs/sdcard/tx16s/IMAGES/splash.png` to the SD. MK3 when on hand.
 
 ## Session log
+**2026-06-03 (perf) — DMA2D acceleration + render simplification (fast UI pass).**
+- Owner flagged sluggish tile-drag + menu-open. Root cause: LVGL was software-rendering
+  gradients/alpha on every frame, and the menu rebuilt ~80 objects on each open. The
+  **TX16S is an STM32F429** (`CPU_TYPE_FULL STM32F429xI`, `-DSTM32F429xx -DSDRAM`) — it
+  **has DMA2D (Chrom-ART) + LTDC + SDRAM**, but LVGL's DMA2D was disabled.
+- **Enabled `LV_USE_GPU_STM32_DMA2D`** (lv_conf.h), gated to DMA2D-capable targets
+  (F429/F439/H7) and never the simulator or F407 colorlcd radios (T16/T18). EdgeTX's
+  `!LV_USE_GPU_STM32_DMA2D` guards (lcd.cpp/boot_lcd.cpp/dma2d.cpp) switch its own DMA2D
+  blitter + software path off → no peripheral contention. **Firmware links clean; sim
+  still builds with it gated off.** Rendering correctness is **hardware-verify only**
+  (sim can't exercise DMA2D) — revert the one flag if artifacts appear.
+- **Flat fills** (solid card/background, opaque borders — no per-pixel gradient/alpha) +
+  **build-once menu** (hidden, show/hide + slide; no per-tap construction) + bigger MENU tab.
+- Bin: `evora-tx16s.bin` (DMA2D build). `Evora-TX@03041e2f2`.
+
 **2026-06-03 (late) — VBar-style sectioned right-side menu + Tuning pages.**
 - Built the **VBar Control Touch menu structure** in the instrument theme (`EvoraHome::openMenu/
   closeMenu/menuTab`): slide-in panel from the right over the dimmed home, amber edge tab, scrim/X to

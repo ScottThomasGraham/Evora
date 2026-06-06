@@ -1,6 +1,6 @@
 # Evora — current status & how to resume
 
-_Last updated: 2026-06-03_
+_Last updated: 2026-06-06_
 
 Evora is an open-source, **firmware-level** recreation of the Mikado VBar Control Touch
 *experience* for RC helis: bind + a guided on-radio wizard + fly, no PC. See [`../README.md`](../README.md)
@@ -79,6 +79,61 @@ repos: [`upstream-baselines.md`](upstream-baselines.md).
 4. **Phase 0 hardware (owner):** flash `evora-tx16s` (bootloader-recoverable) once the SD reader arrives; copy `docs/sdcard/tx16s/IMAGES/splash.png` to the SD. MK3 when on hand.
 
 ## Session log
+**2026-06-06 — major UI overhaul (off-site, screenshot-driven review) + flashable bin.**
+Walked the ENTIRE UI with the owner via cropped sim screenshots, fixing each screen. All
+shipped to `Evora-TX@evora` (pushed, tip `489c7b40d`) + rebuilt `evora-tx16s.bin` (1.75 MB).
+- **Home/menu:** real TX battery % (`GET_TXBATT_BARS(100)`); MENU grab-tab flush on the right
+  (left-rounded only) and kept on the **idle home only**; **swipe to open/close the menu**
+  (LEFT=open / RIGHT=close, anywhere — had to suppress EdgeTX's QuickMenu via an `onClicked`
+  override + kill the ViewMain tileview h-scroll); menu sections are a tap-to-expand
+  **ACCORDION** (`accHeaderCb`, MODEL open by default; `EV_MENU_OPEN_FIRST`); **model
+  selection REMOVED** — a bound heli auto-loads over the link, so the Helicopters picker +
+  "Switch model" are gone (Kind enum dropped `MODELS`; renumbered); **New / Edit / Load-preset
+  are GATED** until a heli is connected (proxy for "bound" until the link exists); new **"Load
+  preset"** MODEL row → picker overlay for Rotorflight `.txt` diffs (`presetLoader`, file list
+  + processor STUBBED).
+- **UI sounds:** faint click bloop + menu swoosh (`evSfxClick` / `evSfxSwoosh`, `audioQueue.
+  playFile` PLAY_NOW). WAVs in `docs/sdcard/SOUNDS/` (gen: `.native-build/make-sfx.py`); ride
+  the SD. **Hardware-verify only** (sim can't play audio).
+- **Tiles:** System / Tools / Edit Model now share one `gridTile` (icon chip + label + value),
+  horizontal scroll. Icons are EdgeTX FontAwesome glyphs (only `FONT(STD)` carries them).
+- **Wizard — now 12 steps (bind removed; all `sel[]`/case indices renumbered).** Servo, board,
+  rotor, governor diagrams redrawn. **Pick-your-heli** uses a real recolourable **heli
+  silhouette** — ALPHA_8BIT asset from the owner's SVG → `radio/src/fonts/{evora,evora-lrg}/
+  evora_heli_img.c` (gen: `.native-build/png-to-heli.py` from a qlmanage raster). EdgeTX has
+  image transforms OFF, so all tiles share ONE size; **7 sizes** 100/200/450/550/600/700/800
+  in a horizontal-scroll strip. **Board orientation** is now **TOP-DOWN cable direction**
+  (Cables forward / back / Custom angle, rotating arrow via `sinf/cosf`; `val[6]`, `adjust()`
+  extended to field 6, wraps 0..345/15°). **Rotor** arrow = a FILLED triangle (`triDown`,
+  stacked bars since primitives can't fill a poly). **Governor branch** = icon cards
+  (bolt / RPM-refresh / fuel-drop `triUp`). **Governor settings** = separate Main + Pinion
+  teeth steppers (`val[3]`/`val[2]`) + live computed RATIO; gear-graphic teeth track the values.
+- **Input monitor** — new `EvoraInputs` window (`evora_inputs.{h,cpp}`): live gimbal
+  crosshairs + pot bars + switch states, named via `getSourceString`, polled in `checkEvents`
+  (`getValue(MIXSRC_FIRST_STICK/POT/SWITCH + i)`). Opens by tapping the home INPUT cell. No trims.
+- **Tooling:** `.native-build/capture-review.sh` (all screens → montage), `swipe-shot.sh`,
+  LCD crop box `466x266+12+133`. Emulator preview hooks (all default 0): existing FORCE_STATE/
+  PREVIEW_SCREEN/WIZARD/MENU + WIZARD_START, plus new **EV_PREVIEW_PRESET / EV_PREVIEW_INPUTS**.
+
+**OPEN — pick up HERE next session:**
+1. **Trim → endpoint gesture (owner-specified; the main pending feature).** DISABLE center
+   trims entirely (flybarless units trim in the FC, never the radio — `mixer.cpp` `evalTrims()`
+   feeds `trims[]`; the buttons' key handling is the re-task target). RE-TASK the trim buttons:
+   hold a stick to **full deflection** + tap its trim ± to grow/shrink **that endpoint**,
+   written to **Rotorflight over MSP** (local-override stub now, wire at bench). Needs an
+   on-screen feedback flash; gate to **disarmed / on the ground**. Mapping (owner's spec):
+   - **Rudder** full L / R → tail-servo **left / right** endpoint (independent per side)
+   - **Aileron** (either dir) → **roll cyclic** travel (symmetric — both sides together)
+   - **Elevator** (either dir) → **pitch cyclic** travel (symmetric)
+   - **Collective** full **UP** → **positive** pitch travel; full **DOWN** → **negative** pitch
+   Each axis uses ITS OWN trim. These are the SAME Rotorflight params the wizard's Tail-travel /
+   Max-pitch steps set — one source of truth.
+2. **Flight dashboard rebuild** — owner is sending a VBar flight-menu reference; current is the
+   old arc-gauge dashboard (`buildFlight` in `evora_home.cpp`).
+3. **Bench-dependent wiring** — wizard MSP writes + live telemetry into home/wizard; Load-preset
+   diff processing (parse Rotorflight `set`/feature/mode lines → MSP); class presets; build the
+   Evora Link (ELRS) ends + binding phrase. (Needs the heli on the bench.)
+
 **2026-06-03 (night 2) — native clickable simulator + home redesign + perf course-correct.**
 - **Native macOS clickable simulator stood up** (the big workflow win — iterate UI without flashing):
   `brew install cmake sdl2`; build with `cd forks/evora-tx/build-simu-mac && CPATH="$(cc -print-resource-dir)/include:$(xcrun --show-sdk-path)/usr/include" make simu`
